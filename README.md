@@ -1,4 +1,4 @@
-# Face-detection
+# Face-recognition
 Real-Time Face Recognition use SCRFD, ArcFace, ByteTrack and Similarity Measure
 
 <div align = "center">
@@ -10,15 +10,6 @@ Real-Time Face Recognition use SCRFD, ArcFace, ByteTrack and Similarity Measure
 ## Table of Contents
 
 - [Architecture](#architecture)
-- [How to use](#how-to-use)
-  - [Create Environment and Install Packages](#create-environment-and-install-packages)
-  - [Add new persons to datasets](#add-new-persons-to-datasets)
-- [Technology](#technology)
-  - [Face Detection](#face-detection)
-  - [Face Recognition](#face-recognition)
-  - [Face Tracking](#face-tracking)
-  - [Matching Algorithm](#matching-algorithm)
-- [Reference](#reference)
 
 ## Architecture
 
