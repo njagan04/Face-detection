@@ -6,3 +6,11 @@ Real-Time Face Recognition use SCRFD, ArcFace, ByteTrack and Similarity Measure
     <img src="https://img.shields.io/static/v1?message=Refer%20Medium%20page&logo=M&label=&color=12100E&logoColor=white&labelColor=&style=for-the-badge" height="40" alt="medium logo" style="vertical-align: top;" />
   </a>
 </div>
+
+# Real-Time Face Recognition
+
+   <p align="center">
+   <img src="./assets/face-recognition.gif" alt="Face Recognition" />
+   <br>
+   <em>Face Recognition</em>
+   </p>
