@@ -25,5 +25,5 @@ Real-Time Face Recognition use SCRFD, ArcFace, ByteTrack and Similarity Measure
    <p align="center">
    <img src="./assets/sequence-diagram.png" alt="Sequence Diagram" />
    <br>
-   <em>Sequence Diagram</em>
+   <em>Sequence Diagram - click to view</em>
    </p>
