@@ -1,4 +1,5 @@
 # Face-recognition
+
 Real-Time Face Recognition use SCRFD, ArcFace, ByteTrack and Similarity Measure
 
 <div align = "center">
@@ -10,6 +11,8 @@ Real-Time Face Recognition use SCRFD, ArcFace, ByteTrack and Similarity Measure
 ## Table of Contents
 
 - [Architecture](#architecture)
+- [How to use](#how-to-use)
+  - [Create Environment and Install Packages](#create-environment-and-install-packages)
 
 ## Architecture
 
@@ -18,3 +21,20 @@ Real-Time Face Recognition use SCRFD, ArcFace, ByteTrack and Similarity Measure
    <br>
    <em>Sequence Diagram - click to view</em>
    </p>
+
+## How to use
+
+### Create Environment and Install Packages
+
+```shell
+conda create -n face-dev python=3.9
+```
+
+```shell
+conda activate face-dev
+```
+
+```shell
+pip install torch==1.9.1+cpu torchvision==0.10.1+cpu torchaudio==0.9.1 -f https://download.pytorch.org/whl/torch_stable.html
+pip install -r requirements.txt
+```
