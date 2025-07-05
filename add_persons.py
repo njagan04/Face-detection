@@ -173,3 +173,4 @@ if __name__ == "__main__":
 
     # Run the main function
     add_persons(**vars(opt))
+    
