@@ -49,3 +49,25 @@ def estimate_norm(lmk, image_size=112, mode="arcface"):
     M = tform.params[0:2, :]
 
     return M
+
+
+def norm_crop(img, landmark, image_size=112, mode="arcface"):
+    """
+    Normalize and crop a facial image based on provided landmarks.
+
+    Args:
+        img (numpy.ndarray): Input facial image.
+        landmark (numpy.ndarray): 2D array of shape (5, 2) representing facial landmarks.
+        image_size (int): Desired output image size.
+        mode (str): Alignment mode, currently only "arcface" is supported.
+
+    Returns:
+        numpy.ndarray: Normalized and cropped facial image.
+    """
+    # Estimate the transformation matrix
+    M = estimate_norm(landmark, image_size, mode)
+
+    # Apply the affine transformation to the image
+    warped = cv2.warpAffine(img, M, (image_size, image_size), borderValue=0.0)
+
+    return warped
