@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def read_features(feature_path):
     try:
         data = np.load(feature_path + ".npz", allow_pickle=True)
@@ -10,7 +9,6 @@ def read_features(feature_path):
         return images_name, images_emb
     except:
         return None
-
 
 def compare_encodings(encoding, encodings):
     sims = np.dot(encodings, encoding.T)
