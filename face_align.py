@@ -51,6 +51,35 @@ def main():
 
             align = norm_crop(frame, landmarks[i])
 
+        # Calculate and display the frame rate
+        frame_count += 1
+        if frame_count >= 30:
+            end = time.time_ns()
+            fps = 1e9 * frame_count / (end - start)
+            frame_count = 0
+            start = time.time_ns()
+
+        if fps > 0:
+            fps_label = "FPS: %.2f" % fps
+            cv2.putText(frame, fps_label, (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+
+        # Save the frame to the video
+        video.write(frame)
+
+        # Show the result in a window
+        cv2.imshow("Face Detection", frame)
+        cv2.imshow("Face align", align)
+
+        # Press 'Q' on the keyboard to exit
+        if cv2.waitKey(25) & 0xFF == ord("q"):
+            break
+
+    # Release video and camera, and close all OpenCV windows
+    video.release()
+    cap.release()
+    cv2.destroyAllWindows()
+    cv2.waitKey(0)
+
 
 if __name__ == "__main__":
     main()
