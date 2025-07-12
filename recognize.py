@@ -41,6 +41,21 @@ data_mapping = {
     "detection_landmarks": [],
     "tracking_bboxes": [],
 }
+def load_config(file_name):
+    """
+    Load a YAML configuration file.
+
+    Args:
+        file_name (str): The path to the YAML configuration file.
+
+    Returns:
+        dict: The loaded configuration as a dictionary.
+    """
+    with open(file_name, "r") as stream:
+        try:
+            return yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            print(exc)
 
 
 def process_tracking(frame, detector, tracker, args, frame_id, fps):
