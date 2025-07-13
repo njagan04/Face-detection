@@ -247,6 +247,39 @@ def tracking(detector, args):
             break
 
 
+def recognize():
+    """Face recognition in a separate thread."""
+    while True:
+        raw_image = data_mapping["raw_image"]
+        detection_landmarks = data_mapping["detection_landmarks"]
+        detection_bboxes = data_mapping["detection_bboxes"]
+        tracking_ids = data_mapping["tracking_ids"]
+        tracking_bboxes = data_mapping["tracking_bboxes"]
+
+        for i in range(len(tracking_bboxes)):
+            for j in range(len(detection_bboxes)):
+                mapping_score = mapping_bbox(box1=tracking_bboxes[i], box2=detection_bboxes[j])
+                if mapping_score > 0.9:
+                    face_alignment = norm_crop(img=raw_image, landmark=detection_landmarks[j])
+
+                    score, name = recognition(face_image=face_alignment)
+                    if name is not None:
+                        if score < 0.25:
+                            caption = "UN_KNOWN"
+                        else:
+                            caption = f"{name}:{score:.2f}"
+
+                    id_face_mapping[tracking_ids[i]] = caption
+
+                    detection_bboxes = np.delete(detection_bboxes, j, axis=0)
+                    detection_landmarks = np.delete(detection_landmarks, j, axis=0)
+
+                    break
+
+        if tracking_bboxes == []:
+            print("Waiting for a person...")
+
+
 def main():
     """Main function to start face tracking and recognition threads."""
     file_name = "./face_tracking/config/config_tracking.yaml"
