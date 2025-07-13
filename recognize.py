@@ -174,6 +174,78 @@ def recognition(face_image):
     return score, name
 
 
+def mapping_bbox(box1, box2):
+    """
+    Calculate the Intersection over Union (IoU) between two bounding boxes.
+
+    Args:
+        box1 (tuple): The first bounding box (x_min, y_min, x_max, y_max).
+        box2 (tuple): The second bounding box (x_min, y_min, x_max, y_max).
+
+    Returns:
+        float: The IoU score.
+    """
+    # Calculate the intersection area
+    x_min_inter = max(box1[0], box2[0])
+    y_min_inter = max(box1[1], box2[1])
+    x_max_inter = min(box1[2], box2[2])
+    y_max_inter = min(box1[3], box2[3])
+
+    intersection_area = max(0, x_max_inter - x_min_inter + 1) * max(
+        0, y_max_inter - y_min_inter + 1
+    )
+
+    # Calculate the area of each bounding box
+    area_box1 = (box1[2] - box1[0] + 1) * (box1[3] - box1[1] + 1)
+    area_box2 = (box2[2] - box2[0] + 1) * (box2[3] - box2[1] + 1)
+
+    # Calculate the union area
+    union_area = area_box1 + area_box2 - intersection_area
+
+    # Calculate IoU
+    iou = intersection_area / union_area
+
+    return iou
+
+
+def tracking(detector, args):
+    """
+    Face tracking in a separate thread.
+
+    Args:
+        detector: The face detector.
+        args (dict): Tracking configuration parameters.
+    """
+    # Initialize variables for measuring frame rate
+    start_time = time.time_ns()
+    frame_count = 0
+    fps = -1
+
+    # Initialize a tracker and a timer
+    tracker = BYTETracker(args=args, frame_rate=30)
+    frame_id = 0
+
+    cap = cv2.VideoCapture(0)
+
+    while True:
+        _, img = cap.read()
+
+        tracking_image = process_tracking(img, detector, tracker, args, frame_id, fps)
+
+        # Calculate and display the frame rate
+        frame_count += 1
+        if frame_count >= 30:
+            fps = 1e9 * frame_count / (time.time_ns() - start_time)
+            frame_count = 0
+            start_time = time.time_ns()
+
+        cv2.imshow("Face Recognition", tracking_image)
+
+        # Check for user exit input
+        ch = cv2.waitKey(1)
+        if ch == 27 or ch == ord("q") or ch == ord("Q"):
+            break
+
 
 def main():
     """Main function to start face tracking and recognition threads."""
