@@ -41,6 +41,8 @@ data_mapping = {
     "detection_landmarks": [],
     "tracking_bboxes": [],
 }
+
+
 def load_config(file_name):
     """
     Load a YAML configuration file.
@@ -150,6 +152,27 @@ def get_feature(face_image):
     images_emb = emb_img_face / np.linalg.norm(emb_img_face)
 
     return images_emb
+
+
+def recognition(face_image):
+    """
+    Recognize a face image.
+
+    Args:
+        face_image: The input face image.
+
+    Returns:
+        tuple: A tuple containing the recognition score and name.
+    """
+    # Get feature from face
+    query_emb = get_feature(face_image)
+
+    score, id_min = compare_encodings(query_emb, images_embs)
+    name = images_names[id_min]
+    score = score[0]
+
+    return score, name
+
 
 
 def main():
